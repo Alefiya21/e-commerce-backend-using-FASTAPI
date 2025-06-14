@@ -81,7 +81,7 @@ Create a `.env` file in the root directory:
 
 \`\`\`env
 DATABASE_URL=postgresql://username:password@localhost:5432/ecommerce_db
-SECRET_KEY=your-super-secret-jwt-key-change-this-in-production
+SECRET_KEY=your-super-secret-jwt-key
 SMTP_USERNAME=your-email@gmail.com
 SMTP_PASSWORD=your-app-password
 \`\`\`
@@ -99,14 +99,7 @@ alembic revision --autogenerate -m "Initial migration"
 alembic upgrade head
 \`\`\`
 
-### 5. Seed Database with Sample Data
-
-\`\`\`bash
-# Run the seed script
-python scripts/seed_data.py
-\`\`\`
-
-### 6. Run the Application
+### 5. Run the Application
 
 \`\`\`bash
 python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
@@ -148,12 +141,6 @@ The API will be available at:
 - `GET /orders` - Get order history (User only)
 - `GET /orders/{order_id}` - Get order details (User only)
 
-## Test Accounts
-
-After running the seed script, you can use these test accounts:
-
-- **Admin**: admin@example.com / admin123
-- **User**: user@example.com / user123
 
 ## Testing
 
@@ -164,18 +151,6 @@ After running the seed script, you can use these test accounts:
 3. Use the `access_token` in the Authorization header: `Bearer <token>`
 4. Test all endpoints according to the role-based access control
 
-### Automated Testing
-
-\`\`\`bash
-# Run all tests
-python -m pytest app/tests/ -v
-
-# Run specific test file
-python -m pytest app/tests/test_auth.py -v
-
-# Run with coverage
-python -m pytest app/tests/ --cov=app --cov-report=html
-\`\`\`
 
 ## Error Handling
 
