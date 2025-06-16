@@ -3,7 +3,6 @@ from jose import JWTError, jwt
 from datetime import datetime, timedelta, timezone
 from app.core.config import settings
 import secrets
-# from app.utils.email import send_reset_email
 import logging
 
 logger = logging.getLogger(__name__)
