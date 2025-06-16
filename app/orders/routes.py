@@ -50,16 +50,18 @@ async def get_order_details(order_id: int,db: Session = Depends(get_db),current_
     
     # Get order items with product details
     order_items = db.query(OrderItem, Product).join(
-        Product, OrderItem.product_id == Product.id
+        Product, OrderItem.product_id == Product.id,isouter= True,
     ).filter(OrderItem.order_id == order_id).all()
     
     items = []
     for order_item, product in order_items:
+        name = product.name if product else "the product is no longer available"
+        product_id = product.id   if product else order_item.product_id
         subtotal = order_item.price_at_purchase * order_item.quantity
         items.append(OrderItemResponse(
             id=order_item.id,
-            product_id=product.id,
-            product_name=product.name,
+            product_id=product_id,
+            product_name=name,
             quantity=order_item.quantity,
             price_at_purchase=order_item.price_at_purchase,
             subtotal=subtotal
